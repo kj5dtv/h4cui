@@ -1,4 +1,4 @@
-# Project Name
+# h4cui - A hub4com Wrapper
 
 [![License](https://img.shields.io/badge/License-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
