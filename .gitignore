@@ -1,0 +1,41 @@
+# This .gitignore file is part of a project that is freely distributable under the BSD License.
+# For more details on the license, please visit: https://opensource.org/licenses/BSD-3-Clause
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+*.env
+.venv
+
+# Builds
+build/
+dist/
+*.egg-info/
+
+
+# IDE
+.vscode/
+*.vscode/
+.history/
+
+# Compiled files
+*.exe
+*.dll
+*.so
+*.pyc
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+poetry.lock

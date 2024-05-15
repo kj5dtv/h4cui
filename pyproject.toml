@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "h4cui"
+version = "0.1.0"
+description = "This is a wrapper for the hub4com application, a program that can be found here: https://sourceforge.net/p/com0com/news/2012/06/hub4com-v2100-released/. It is part of the com0com (cnc) null modem emulator project found here: https://com0com.sourceforge.net/ written by Vyacheslav Frolov."
+authors = ["KJ5DTV <wells01440@gmail.com>"]
+license = "BSD"
+readme = "README.md"
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+tkinter-gl = "^1.0a3"
+pystray = "^0.19.5"
+pillow = "^10.3.0"
+pyserial = "^3.5"
+wmi = "^1.5.1"
+psutil = "^5.9.8"
+pywin32 = "^306"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+cx-freeze = "^6.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
