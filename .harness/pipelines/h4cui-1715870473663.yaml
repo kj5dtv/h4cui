@@ -43,9 +43,10 @@ pipeline:
                   timeout: ""
                   type: Run
           platform:
-            os: Linux
+            os: Windows
             arch: Amd64
           runtime:
-            type: Docker
+            type: Cloud
             spec: {}
         type: CI
+        description: ""
