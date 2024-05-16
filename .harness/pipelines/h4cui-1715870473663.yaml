@@ -46,7 +46,7 @@ pipeline:
             os: Windows
             arch: Amd64
           runtime:
-            type: Cloud
+            type: Docker
             spec: {}
         type: CI
         description: ""
