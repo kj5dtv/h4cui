@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_kj5dtv_h4cui_1715870490574-pr-trigger-input-set
+  identifier: Build_kj5dtv_h4cui_1715870490574prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_kj5dtv_h4cui_1715870490574
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
