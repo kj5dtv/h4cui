@@ -23,8 +23,8 @@ DEVICE_ID_ROOT = "ROOT"
 
 
 class CNCPortUtil:
-    """Utility class for handling CNC (com0com) ports.  This modules uses WMI to query for devices and classify 
-    them into physical ports, CNC busses, and CNC ports.  It also provides methods for getting primary and secondary 
+    """Utility class for handling CNC (com0com) ports.  This modules uses WMI to query for devices and classify
+    them into physical ports, CNC busses, and CNC ports.  It also provides methods for getting primary and secondary
     CNC port pairs.  This relies on the hub4com utility to create virtual serial ports.  There are wrapper classes
     found in the data_classes module for representing physical ports, CNC busses, and CNC ports.
 
@@ -44,7 +44,9 @@ class CNCPortUtil:
         self.hub4com_path: str = HUB4COM_PATH
         self.hub4com_output: str = ""
         self.wmi: Any = wmi.WMI()
-        all_devices: List[ComWrap] = [ComWrap(d) for d in self.wmi.Win32_PnPEntity() if d.Status == STATUS_OK]
+        all_devices: List[ComWrap] = [
+            ComWrap(d) for d in self.wmi.Win32_PnPEntity() if d.Status == STATUS_OK
+        ]
 
         self.busses: List[CNCBus] = []
         self.cnc_ports: List[CNCPort] = []
@@ -77,8 +79,14 @@ class CNCPortUtil:
         Returns:
             List[Tuple[CNCPort, CNCPort]]: List of tuples where each tuple contains a primary and secondary CNC port.
         """
-        secondary_ports_dict = {port.instance_id: port for port in self.secondary_cnc_ports}
-        return [(port, secondary_ports_dict[port.sibling_instance_id]) for port in self.primary_cnc_ports if port.sibling_instance_id in secondary_ports_dict]
+        secondary_ports_dict = {
+            port.instance_id: port for port in self.secondary_cnc_ports
+        }
+        return [
+            (port, secondary_ports_dict[port.sibling_instance_id])
+            for port in self.primary_cnc_ports
+            if port.sibling_instance_id in secondary_ports_dict
+        ]
 
     @property
     def primary_cnc_ports(self) -> List[CNCPort]:

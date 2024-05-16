@@ -12,7 +12,7 @@ Classes:
     CNCBus: Represents a CNC bus.
     CNCPort: Represents a CNC port.
     PhysicalPort: Represents a physical port.
-    
+
 This is free software licensed under the BSD 3-Clause License (see LICENSE file for details).
 """
 
@@ -20,10 +20,9 @@ import re
 from dataclasses import dataclass, field
 import serial
 import winreg
-from typing import Optional, ClassVar, Type, Any
+from typing import Optional, Type
 
 from com_wrapper import ComWrap
-import re
 
 RE_COM_PORT: re.Pattern[str] = re.compile(pattern=r".*(COM\d+)\)$")
 
@@ -120,7 +119,7 @@ class CNCPort(Device):
             return False
         except AttributeError:
             raise
-        except serial.SerialException as e:
+        except serial.SerialException:
             return True
 
 

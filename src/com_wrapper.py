@@ -13,6 +13,7 @@ This is free software licensed under the BSD 3-Clause License (see LICENSE file 
 import pywintypes
 from typing import Any, List, Tuple
 
+
 class ComWrap:
     """A wrapper for a COM object.
 
@@ -46,7 +47,9 @@ class ComWrap:
             device_properties = []
 
         for prop in device_properties:
-            prop_list: List[Any] | Tuple[Any] = prop if isinstance(prop, (list, tuple)) else [prop]
+            prop_list: List[Any] | Tuple[Any] = (
+                prop if isinstance(prop, (list, tuple)) else [prop]
+            )
             for p in prop_list:
                 if hasattr(p, "KeyName") and hasattr(p, "Data"):
                     setattr(self, p.KeyName, p.Data)
