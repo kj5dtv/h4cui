@@ -42,7 +42,7 @@ jobs:
         echo "filename=$filename" | Out-File -FilePath $env:GITHUB_ENV -Append
       shell: pwsh
     - name: Install wheel
-      run: pip install ${{ env.filename }}
+      run: pip install dist/${{ env.filename }}
       shell: pwsh
     - name: Build EXE with Nuitka
       uses: Nuitka/Nuitka-Action@main
