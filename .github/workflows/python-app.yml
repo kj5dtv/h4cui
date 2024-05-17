@@ -35,8 +35,12 @@ jobs:
     - name: Build with poetry
       run: |
         poetry build
+    - name: Get wheel file name
+      id: get_filename
+      run: echo "::set-output name=filename::$(ls dist/*.whl)"        
     - name: Install wheel
-      run: pip install dist/*.whl
+      run: pip install dist/${{ steps.get_filename.outputs.filename }}
+      shell: pwsh
     - name: Build EXE with Nuitka
       uses: Nuitka/Nuitka-Action@main
       with:
