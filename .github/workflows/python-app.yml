@@ -48,10 +48,15 @@ jobs:
         script-name: src/h4cui.py
         standalone: true
         enable-plugins: tk-inter
+        onefile: true
+        disable-console: true
+        windows-icon-from-ico: assets/kj5dtv.ico        
         include-data-dir: |
           assets=assets
     - name: Upload EXE
       uses: actions/upload-artifact@v3
       with:
         name: hfcui
-        path: dist/hfcui.exe        
+        path: |
+          build/h4cui.exe
+          dist/*
