@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-main.py - part of the h4cui project
+h4cui.py - part of the h4cui project
 
 This module provides the main application for the h4cui project.  It provides a GUI for selecting physical ports and
 CNC ports and running the hub4com utility to replicate data between them.
@@ -12,7 +12,7 @@ Entry Point:
     main: The main entry point for the h4cui project.
 
 Example Usage:
-    python main.py
+    python h4cui.py
 
 This is free software licensed under the BSD 3-Clause License (see LICENSE file for details).
 """
