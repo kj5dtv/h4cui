@@ -37,9 +37,12 @@ jobs:
         poetry build
     - name: Get wheel file name
       id: get_filename
-      run: echo "::set-output name=filename::$(ls dist/*.whl)"        
+      run: |
+        $filename = Get-ChildItem -Path dist/*.whl -Name
+        echo "filename=$filename" | Out-File -FilePath $env:GITHUB_ENV -Append
+      shell: pwsh
     - name: Install wheel
-      run: pip install dist/${{ steps.get_filename.outputs.filename }}
+      run: pip install ${{ env.filename }}
       shell: pwsh
     - name: Build EXE with Nuitka
       uses: Nuitka/Nuitka-Action@main
