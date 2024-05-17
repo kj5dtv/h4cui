@@ -35,17 +35,19 @@ jobs:
     - name: Build with poetry
       run: |
         poetry build
-    - name: Build EXE Python GUI With TkInter
+    - name: Install wheel
+      run: pip install dist/*.whl
+    - name: Build EXE with Nuitka
       uses: Nuitka/Nuitka-Action@main
       with:
         nuitka-version: main
-        script-name: main.py
+        script-name: src/main.py
         standalone: true
-        enable-plugins: tk-inter    
-
+        enable-plugins: tk-inter
+        include-data-dir: |
+          assets=assets
     - name: Upload EXE
       uses: actions/upload-artifact@v3
       with:
-        name: my-exe
-        path: dist/hfcui.exe    
-
+        name: hfcui
+        path: dist/hfcui.exe        
