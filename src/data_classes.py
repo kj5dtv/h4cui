@@ -26,6 +26,7 @@ from com_wrapper import ComWrap
 
 RE_COM_PORT: re.Pattern[str] = re.compile(pattern=r".*(COM\d+)\)$")
 
+
 @dataclass
 class Device:
     """Base class for a device.
@@ -48,7 +49,7 @@ class Device:
         return self.instance_id
 
     @classmethod
-    def from_device(cls: Type['Device'], device: ComWrap) -> 'Device':
+    def from_device(cls: Type["Device"], device: ComWrap) -> "Device":
         """Creates a Device instance from a ComWrap object."""
         return cls(device)
 
@@ -56,6 +57,7 @@ class Device:
 @dataclass
 class CNCBus(Device):
     """Represents a CNC bus. Inherits from Device."""
+
     pass
 
 
@@ -76,9 +78,11 @@ class CNCPort(Device):
     def __post_init__(self) -> None:
         """Initializes port_id, sibling_instance_id, and bus_instance_id after the instance has been created."""
         super().__post_init__()
-        self.port_id = getattr(self.device, 'DEVPKEY_Device_LocationInfo')
-        self.sibling_instance_id = getattr(self.device, 'DEVPKEY_Device_Siblings', '')[0].upper()
-        self.bus_instance_id = getattr(self.device, 'DEVPKEY_Device_Parent')
+        self.port_id = getattr(self.device, "DEVPKEY_Device_LocationInfo")
+        self.sibling_instance_id = getattr(self.device, "DEVPKEY_Device_Siblings", "")[
+            0
+        ].upper()
+        self.bus_instance_id = getattr(self.device, "DEVPKEY_Device_Parent")
 
     @staticmethod
     def get_port_name(instance_id: str) -> Optional[str]:
@@ -142,12 +146,12 @@ class PhysicalPort(Device):
     def __post_init__(self) -> None:
         """Initializes port_id, _port_name, description, and driver_description after the instance has been created."""
         super().__post_init__()
-        self.port_id = getattr(self.device, 'DEVPKEY_Device_LocationInfo')
-        devpkey_name = getattr(self.device, 'DEVPKEY_NAME', '')
+        self.port_id = getattr(self.device, "DEVPKEY_Device_LocationInfo")
+        devpkey_name = getattr(self.device, "DEVPKEY_NAME", "")
         match = RE_COM_PORT.match(devpkey_name)
-        self._port_name = match.group(1) if match else ''
-        self.description = getattr(self.device, 'DEVPKEY_Device_DeviceDesc')
-        self.driver_description = getattr(self.device, 'DEVPKEY_Device_DriverDesc')
+        self._port_name = match.group(1) if match else ""
+        self.description = getattr(self.device, "DEVPKEY_Device_DeviceDesc")
+        self.driver_description = getattr(self.device, "DEVPKEY_Device_DriverDesc")
 
     @property
     def port_name(self) -> str:
