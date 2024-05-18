@@ -83,7 +83,6 @@ class Hub4ComApp(tk.Tk):
     def _init_ui(self) -> None:
         """Initializes the user interface."""
         self.title("H4CUI - Hub4Com UI by KJ5DTV")
-        self.iconbitmap("assets/kj5dtv.ico")
         self.geometry("1024x768")
         self.grid_columnconfigure(
             0, weight=1
@@ -274,10 +273,10 @@ class Hub4ComApp(tk.Tk):
         )
         self.hub4com_path_frame.grid_columnconfigure(
             0, weight=1
-        )  # Set the weight of the first column to 1
+        )  
         self.hub4com_path_frame.grid_columnconfigure(
             1, weight=0
-        )  # Set the weight of the second column to 0
+        )  
 
         self.hub4com_path_label = tk.Label(
             self.hub4com_path_frame, text=self.hub4com_path, anchor="nw"

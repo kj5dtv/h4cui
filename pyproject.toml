@@ -22,10 +22,22 @@ pywin32 = "^306"
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
 flake8 = "^4.0.1"
+nuitka = "^2.2.2"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["nuitka"]
+build-backend = "nuitka.sdist.Build"
+
+# [build-system]
+# requires = ["poetry-core"]
+# build-backend = "poetry.core.masonry.api"
+
+[tool.nuitka]
+enable-plugins = "tk-inter"
+onefile = true
+standalone = true
+disable-console = false
+windows-icon-from-ico = "assets/kj5dtv.ico"
 
 [tool.black]
 line-length = 120
