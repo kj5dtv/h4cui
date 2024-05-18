@@ -84,12 +84,8 @@ class Hub4ComApp(tk.Tk):
         """Initializes the user interface."""
         self.title("H4CUI - Hub4Com UI by KJ5DTV")
         self.geometry("1024x768")
-        self.grid_columnconfigure(
-            0, weight=1
-        )  # Set a minimum width for the first column
-        self.grid_columnconfigure(
-            1, weight=2
-        )  # Set a minimum width for the second column
+        self.grid_columnconfigure(0, weight=1)  # Set a minimum width for the first column
+        self.grid_columnconfigure(1, weight=2)  # Set a minimum width for the second column
         self.grid_rowconfigure(5, weight=1)
         self._create_port_frame()
         self._create_instructions()
@@ -146,21 +142,13 @@ class Hub4ComApp(tk.Tk):
             pady=self.internal_pady,
         )
 
-        _sorted_physical_ports: List[Any] = sorted(
-            self.ports.physical_ports, key=lambda port: port.port_name
-        )
+        _sorted_physical_ports: List[Any] = sorted(self.ports.physical_ports, key=lambda port: port.port_name)
 
-        self.source_port: tk.StringVar = (
-            tk.StringVar()
-        )  # Create a StringVar for the Radiobutton widgets
+        self.source_port: tk.StringVar = tk.StringVar()  # Create a StringVar for the Radiobutton widgets
 
-        first_available_port: Any | None = next(
-            (port for port in _sorted_physical_ports if not port.is_in_use), None
-        )
+        first_available_port: Any | None = next((port for port in _sorted_physical_ports if not port.is_in_use), None)
 
-        self.source_port.set(
-            first_available_port.port_name if first_available_port else ""
-        )
+        self.source_port.set(first_available_port.port_name if first_available_port else "")
 
         for i, com_port in enumerate(_sorted_physical_ports):
             in_use: bool = com_port.is_in_use
@@ -203,9 +191,7 @@ class Hub4ComApp(tk.Tk):
         for i, (primary_port, secondary_port) in enumerate(self.ports.cnc_port_pairs):
             in_use = primary_port.is_in_use
             status_text = "- in use" if in_use else "- not in use"
-            replicates_to_text: str = (
-                f" (replicates to {secondary_port.port_name})" if secondary_port else ""
-            )
+            replicates_to_text: str = f" (replicates to {secondary_port.port_name})" if secondary_port else ""
             state = "disabled" if in_use else "normal"
             var = StringVar(value=primary_port.port_name if not in_use else "")
             self.replica_ports.append(var)
@@ -228,9 +214,7 @@ class Hub4ComApp(tk.Tk):
 
     def _create_instructions(self) -> None:
         """Creates the instructions in the user interface."""
-        self.instructions_frame = tk.LabelFrame(
-            self, text="Info", padx=self.external_padx, pady=self.external_pady
-        )
+        self.instructions_frame = tk.LabelFrame(self, text="Info", padx=self.external_padx, pady=self.external_pady)
         self.instructions_frame.grid(
             row=0,
             column=1,
@@ -247,9 +231,7 @@ class Hub4ComApp(tk.Tk):
             "Select the baud rate, the location of the hub4com executable, and press 'Run'."
         )
 
-        self.instructions_label = tk.Label(
-            self.instructions_frame, text=instructions_text, anchor="nw", justify="left"
-        )
+        self.instructions_label = tk.Label(self.instructions_frame, text=instructions_text, anchor="nw", justify="left")
         self.instructions_label.grid(
             row=0,
             column=0,
@@ -271,16 +253,10 @@ class Hub4ComApp(tk.Tk):
             padx=self.internal_padx,
             pady=self.internal_pady,
         )
-        self.hub4com_path_frame.grid_columnconfigure(
-            0, weight=1
-        )  
-        self.hub4com_path_frame.grid_columnconfigure(
-            1, weight=0
-        )  
+        self.hub4com_path_frame.grid_columnconfigure(0, weight=1)
+        self.hub4com_path_frame.grid_columnconfigure(1, weight=0)
 
-        self.hub4com_path_label = tk.Label(
-            self.hub4com_path_frame, text=self.hub4com_path, anchor="nw"
-        )
+        self.hub4com_path_label = tk.Label(self.hub4com_path_frame, text=self.hub4com_path, anchor="nw")
         self.hub4com_path_label.grid(
             row=0,
             column=0,
@@ -307,9 +283,7 @@ class Hub4ComApp(tk.Tk):
 
     def _create_baud_rate_dropdown(self) -> None:
         """Creates the baud ddl"""
-        self.baud_rate_frame = tk.LabelFrame(
-            self, text="Baud Rate", padx=self.external_padx, pady=self.external_pady
-        )
+        self.baud_rate_frame = tk.LabelFrame(self, text="Baud Rate", padx=self.external_padx, pady=self.external_pady)
         self.baud_rate_frame.grid(
             row=2,
             column=1,
@@ -322,9 +296,7 @@ class Hub4ComApp(tk.Tk):
         self.baud_rate_frame.grid_columnconfigure(0, weight=1)
         self.baud_rate_frame.grid_columnconfigure(1, weight=2)
 
-        self.baud_rate_label = tk.Label(
-            self.baud_rate_frame, text="Select baud rate:", anchor="e"
-        )
+        self.baud_rate_label = tk.Label(self.baud_rate_frame, text="Select baud rate:", anchor="e")
         self.baud_rate_label.grid(
             row=0,
             column=0,
@@ -333,9 +305,7 @@ class Hub4ComApp(tk.Tk):
             pady=self.internal_pady,
         )
 
-        self.baud_rate_dropdown = ttk.Combobox(
-            self.baud_rate_frame, textvariable=self.baud, state="readonly"
-        )
+        self.baud_rate_dropdown = ttk.Combobox(self.baud_rate_frame, textvariable=self.baud, state="readonly")
         self.baud_rate_dropdown["values"] = BAUD_RATES
         self.baud_rate_dropdown.bind("<<ComboboxSelected>>", self.update_baud)
         self.baud_rate_dropdown.grid(
@@ -390,9 +360,7 @@ class Hub4ComApp(tk.Tk):
             padx=self.external_padx,
             pady=self.external_pady,
         )
-        self.run_button.grid(
-            row=0, column=0, padx=self.internal_padx, pady=self.internal_pady
-        )
+        self.run_button.grid(row=0, column=0, padx=self.internal_padx, pady=self.internal_pady)
         self.stop_button = tk.Button(
             self.button_frame,
             text="Stop",
@@ -400,9 +368,7 @@ class Hub4ComApp(tk.Tk):
             padx=self.external_padx,
             pady=self.external_pady,
         )
-        self.stop_button.grid(
-            row=0, column=1, padx=self.internal_padx, pady=self.internal_pady
-        )
+        self.stop_button.grid(row=0, column=1, padx=self.internal_padx, pady=self.internal_pady)
         self.exit_button = tk.Button(
             self.button_frame,
             text="Exit",
@@ -410,9 +376,7 @@ class Hub4ComApp(tk.Tk):
             padx=self.external_padx,
             pady=self.external_pady,
         )
-        self.exit_button.grid(
-            row=0, column=2, padx=self.internal_padx, pady=self.internal_pady
-        )
+        self.exit_button.grid(row=0, column=2, padx=self.internal_padx, pady=self.internal_pady)
 
     def run_command(self) -> None:
         """This method runs the hub4com command in a separate thread."""
@@ -426,9 +390,7 @@ class Hub4ComApp(tk.Tk):
         replicas: List[str] = [p.get() for p in self.replica_ports if p.get()]
         command: List[str] = self.get_hub4com_command(source, replicas)
         self.update_command(command)
-        self.process = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-        )
+        self.process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.update_status("Hub4Com process started.\n\n")
         if self.process is not None and self.process.stdout is not None:
             for line in iter(self.process.stdout.readline, b""):
@@ -441,14 +403,8 @@ class Hub4ComApp(tk.Tk):
 
     def browse_hub4com_path(self) -> None:
         """Opens a file dialog to browse to the hub4com executable."""
-        initial_dir = (
-            os.path.dirname(self.hub4com_path)
-            if os.path.exists(self.hub4com_path)
-            else "/"
-        )
-        file_path = filedialog.askopenfilename(
-            initialdir=initial_dir, filetypes=[("Executable files", "*.exe")]
-        )
+        initial_dir = os.path.dirname(self.hub4com_path) if os.path.exists(self.hub4com_path) else "/"
+        file_path = filedialog.askopenfilename(initialdir=initial_dir, filetypes=[("Executable files", "*.exe")])
         if file_path:
             self.hub4com_path = file_path
             if self.hub4com_path_label is not None:
